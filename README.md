@@ -1,12 +1,12 @@
 # tnt-web
 Simple web service based on [tarantool](https://www.tarantool.io/en/doc/latest/getting_started/)
 
-#### What's inside
+### What's inside
 
 Simple key-value storage in tarantool available via http.
 
 
-#### Routes
+### Routes
 
 ```
 POST    /item             Add key-value pair
@@ -25,7 +25,7 @@ DELETE  /item/{item_id}   Delete item by key
 ```
 
 
-#### Contacts
+### Contacts
 
 - Telegram - [@grit4in](https://t.me/grit4in)
 
