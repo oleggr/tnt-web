@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  tarantool:
+    image: tarantool/tarantool:latest
+
+    environment:
+      TARANTOOL_USER_NAME: tnt
+      TARANTOOL_USER_PASSWORD: tnt
+      TARANTOOL_SLAB_ALLOC_ARENA: 0.1
+
+    volumes:
+      - ./app.lua:/opt/tarantool/app.lua
+
+    command: ["tarantool", "app.lua"]
+
+    ports:
+      - "8080:8080"
