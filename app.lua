@@ -7,35 +7,35 @@ box.once('schema', function()
 		parts = {1, 'str'} })
 end)
 
+function validate_item(item)
+	return true
+end
+
 function post_item_handler(req)
-	local resp = req:render({text = req.method..' '..req.path })
-	resp.headers['x-test-header'] = 'test';
-	resp.status = 201
-	return resp
+	local my_table = req:json()
+	box.space.hosts:insert({my_table['key'], my_table['value']})
+	return {status = 200}
 end
 
 function put_item_handler(req)
 	local id = req:stash('id')
-	local resp = req:render({text = req.method..' '..req.path..' '..id})
-	resp.headers['x-test-header'] = 'test';
-	resp.status = 201
-	return resp
+	local my_table = req:json()
+	box.space.hosts:update({id}, {{'=', 2, my_table['value']}})
+	return {status = 200}
 end
 
 function get_item_handler(req)
 	local id = req:stash('id')
-	local resp = req:render({text = req.method..' '..req.path..' '..id})
-	resp.headers['x-test-header'] = 'test';
-	resp.status = 201
-	return resp
+	local res = box.space.hosts:select(id)
+	return tostring(res)
+	--return {status = 200}
 end
 
 function delete_item_handler(req)
 	local id = req:stash('id')
-	local resp = req:render({text = req.method..' '..req.path..' '..id})
-	resp.headers['x-test-header'] = 'test';
-	resp.status = 201
-	return resp
+	box.space.hosts:delete({id})
+	return id
+	--return {status = 200}
 end
 
 local httpd = require('http.server')
