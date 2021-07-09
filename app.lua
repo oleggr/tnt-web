@@ -5,6 +5,8 @@ box.cfg{
 	log_format='plain'
 }
 
+# github test
+
 box.once('schema', function()
 	box.schema.create_space('items')
 	box.space.items:create_index('primary', { type = 'hash',
@@ -52,7 +54,7 @@ function put_item_handler(req)
 	if not validate_item_body(my_table['value']) then
 		log.error('put_item_handler - body incorrect')
 		return {status = 400, body="body incorrect"}
-	end
+githu	end
 
 	log.info('put_item_handler - key %s updated', id)
 	box.space.items:update({id}, {{'=', 2, my_table['value']}})
